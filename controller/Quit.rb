@@ -9,8 +9,9 @@ module Quit
 
       @users.each do |user|
         if (user.name == issuer.name)
-          user.client.send("")
-          user.client.send("Alas, all good things must come to an end.")
+          user.queue_message("")
+          user.queue_message("Alas, all good things must come to an end.")
+          user.push_message_to_client()
           user.server.close(user.client)
         end
       end

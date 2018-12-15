@@ -7,12 +7,14 @@ module Say
 
     def do(issuer, args, callback)
 
-      issuer.client.send("You say, '" + args + "'")
+      issuer.queue_message("You say, '" + args + "'")
+      issuer.push_message_to_client()
 
       @users.each do |user|
         if (user.name != issuer.name)
-          user.client.send("")
-          user.client.send(issuer.name + " says, '" + args + "'")
+          user.queue_message("")
+          user.queue_message(issuer.name + " says, '" + args + "'")
+          user.push_message_to_client()
         end
       end
 

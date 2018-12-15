@@ -39,7 +39,6 @@ while true
           i += 1
         end
       end
-      #@client.send("Alas, all good things must come to an end.")
       puts "Server reports:  client closed"
     end
   end

@@ -67,7 +67,8 @@ module Commands
         command_args = (space_index == nil) ? nil : @current.slice(space_index + 1, @current.length - space_index - 1)
 
         if (command_to_execute == "invalid")
-          issuer.client.send("Invalid command.")
+          issuer.queue_message("Invalid command.")
+          issuer.push_message_to_client()
           complete()
         else
           self.instance_variable_get("@"+command_to_execute).public_send("do", issuer, command_args, Proc.new{complete()})

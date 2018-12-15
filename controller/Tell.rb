@@ -19,17 +19,21 @@ module Tell
         if (user.name == message_target)
           target_found = true
           if (message == nil)
-            issuer.client.send("What do you wish to tell " + message_target + "?")
+            issuer.queue_message("What do you wish to tell " + message_target + "?")
+            issuer.push_message_to_client()
           else
-            issuer.client.send("You tell " + message_target + ", '" + message + "'")
-            user.client.send("")
-            user.client.send(issuer.name + " tells you, '" + message + "'")
+            issuer.queue_message("You tell " + message_target + ", '" + message + "'")
+            issuer.push_message_to_client()
+            user.queue_message("")
+            user.queue_message(issuer.name + " tells you, '" + message + "'")
+            user.push_message_to_client()
           end
         end
       end
 
       if (!target_found)
-        issuer.client.send("That person isn't online.")
+        issuer.queue_message("That person isn't online.")
+        issuer.push_message_to_client()
       end
 
       callback.call()
