@@ -1,4 +1,5 @@
 require_relative 'model/CommandModel'
+require_relative 'controller/Areas'
 require_relative 'controller/Quit'
 require_relative 'controller/Say'
 require_relative 'controller/Tell'
@@ -12,13 +13,15 @@ module Commands
 
   class Command_Queue
 
-    def initialize(users)
+    def initialize(users, mud_data)
 
       @command_model = CommandModel::Command_Model.new()
 
       @users = users
+      @mud_data = mud_data
 
       #Commands we can invoke
+      @areas = Areas::Areas.new(users, mud_data)
       @quit = Quit::Quit.new(users)
       @say = Say::Say.new(users)
       @tell = Tell::Tell.new(users)

@@ -2,6 +2,7 @@ module CommandModel
 
   class Command_Model
 
+    AREAS = "areas"
     INVALID = "invalid"
     QUIT = "quit"
     SAY = "say"
@@ -14,6 +15,8 @@ module CommandModel
     def determine_command(command)
       puts "Determining: " + command
       case command
+      when "areas", "area"
+        return AREAS
       when "quit", "qui"
         return QUIT
       when "say", "sa"

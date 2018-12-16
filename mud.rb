@@ -4,10 +4,12 @@ require 'timers'
 require_relative 'commands'
 require_relative 'users'
 require_relative 'dbconfig'
+require_relative 'model/MudModel'
 
 server = Rubame::Server.new("0.0.0.0", 9000)
 users = []
-queue = Commands::Command_Queue.new(users)
+mud_data = MudModel::MudModel.new()
+queue = Commands::Command_Queue.new(users, mud_data)
 
 dbconfig = DBConfig::DBConfig.new()
 
@@ -17,6 +19,11 @@ db = Mysql2::Client.new(
   :password => dbconfig.password,
   :database => dbconfig.database)
 
+#TODO: Before we start the server running, load all server data into memory
+#This includes: Areas, Rooms, Mobiles, Items, Help Files, Spells, Skills
+mud_data.load(db)
+
+#Server Game Loop
 while true
   server.run do |client|
     client.onopen do
