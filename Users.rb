@@ -2,7 +2,7 @@ module Users
 
   class User
 
-    attr_accessor :server, :usertype, :name, :client, :db, :loggedin, :awaiting_special_input
+    attr_accessor :server, :usertype, :name, :client, :db, :loggedin, :awaiting_special_input, :buildmode
 
     def initialize(server, client, db)
       @server = server
@@ -13,6 +13,7 @@ module Users
       @message_array = []
       @loggedin = false
       @awaiting_special_input = true
+      @buildmode = false
 
       self.queue_message("Welcome to KitMud.")
       self.queue_message("By what name do you wish to be known?")

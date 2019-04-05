@@ -3,6 +3,7 @@ module CommandModel
   class Command_Model
 
     AREAS = "areas"
+    BUILD = "build"
     INVALID = "invalid"
     QUIT = "quit"
     SAY = "say"
@@ -17,13 +18,15 @@ module CommandModel
       case command
       when "areas", "area"
         return AREAS
+      when "build"
+        return BUILD
       when "quit", "qui"
         return QUIT
       when "say", "sa"
         return SAY
       when "tell", "tel", "te", "t"
         return TELL
-      when "who", "who"
+      when "who", "wh"
         return WHO
       else
         return INVALID

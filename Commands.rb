@@ -1,5 +1,6 @@
 require_relative 'model/CommandModel'
 require_relative 'controller/Areas'
+require_relative 'controller/Build'
 require_relative 'controller/Quit'
 require_relative 'controller/Say'
 require_relative 'controller/Tell'
@@ -22,6 +23,7 @@ module Commands
 
       #Commands we can invoke
       @areas = Areas::Areas.new(users, mud_data)
+      @build = Build::Build.new(users)
       @quit = Quit::Quit.new(users)
       @say = Say::Say.new(users)
       @tell = Tell::Tell.new(users)
@@ -59,6 +61,7 @@ module Commands
       issuer = @issuer[0]
 
       #are we awaiting special input (e.g. login)
+      #TODO: commands that can be run in parallel vs queued??
       if (!issuer.loggedin)
         puts "User issued command but is not logged in"
         issuer.login(@current)

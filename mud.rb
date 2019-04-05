@@ -30,10 +30,10 @@ while true
       user = Users::User.new(server, client, db)
       users.push(user)
     end
-    client.onmessage do |mess|
+    client.onmessage do |message|
       users.each do |u|
         if (client == u.client)
-          queue.push(u, "#{mess}")
+          queue.push(u, "#{message}")
         end
       end
     end
